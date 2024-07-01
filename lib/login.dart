@@ -1,86 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/reportpage.dart';
+import 'package:login_signup/homepage.dart';
 
-class MyLogin extends StatefulWidget {
-  const MyLogin({super.key});
+
+class LoginPageScreen extends StatefulWidget {
+  const LoginPageScreen({super.key});
 
   @override
-  State<MyLogin> createState() => _MyLoginState();
+  State<LoginPageScreen> createState() {
+    return _LoginPageScreenState();
+  }
 }
 
-class _MyLoginState extends State<MyLogin> {
+class _LoginPageScreenState extends State<LoginPageScreen> {
+  final _loginNameController=TextEditingController();
+  final _passwordController=TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    double screenwidth = MediaQuery.of(context).size.width;
-    double screenheight = MediaQuery.of(context).size.height;
-    return Container(
-        decoration: BoxDecoration(
-            image: DecorationImage(
-            image: AssetImage('assets/login.png'), fit: BoxFit.cover)),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Stack(
-            children: [
-              Container(
-                padding: EdgeInsets.only(
-                    left: 0.1 * screenwidth, top: 0.2 * screenheight),
-                child: const Text('Welcome\nBack', style: TextStyle(color: Colors.white, fontSize: 33),
+    double swidth = MediaQuery.of(context).size.width;
+    double sheight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Center(
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height:sheight*0.3,
+                  width: swidth*0.5,
+                  child: Image.asset('assets/coverpage.jpg'),
                 ),
-              ),
-              SingleChildScrollView(
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top : 0.5 * screenheight,
-                      right: 0.15 * screenwidth,
-                      left: 0.15 * screenwidth),
-                  child: Column(
-                    children: [
-                      TextField(
-                        obscureText: false,
-                        decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
-                            filled: true,
-                            hintText: 'Email',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15))),
-                      ),
-                      SizedBox(
-                        height: 0.025*screenheight,
-                      ),
-                      TextField(
-                        obscureText: true,
-                        decoration: InputDecoration(
-                            fillColor: Colors.grey.shade100,
-                            filled: true,
-                            hintText: 'Password',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15))),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Register', style: TextStyle(fontSize: 27, fontWeight: FontWeight.w700),),
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Color(0xff4c505b),
-                            child: IconButton(
-                              color: Colors.white,
-                              onPressed: (){
-                                Navigator.pushNamed(context, 'homepage');
-                              },
-                              icon: Icon(Icons.arrow_forward)
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                const SizedBox(
+                  height: 40,
+                ),
+                const Text(
+                  "Login To Start",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 35,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              )
-            ],
+                const SizedBox(
+                  height: 40,
+                ),
+                SizedBox(
+                  width: 350,
+                  child: TextField(
+                    controller: _loginNameController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.login,
+                        color: Color.fromARGB(255, 59, 158, 201),
+                      ),
+                      labelText: 'Patient Id ',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  width: 350,
+                  child: TextField(
+
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.password,
+                        color: Color.fromARGB(255, 59, 158, 201),
+                      ),
+                      labelText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+
+
+                      Padding(
+                        padding:const EdgeInsets.only(right: 20),
+                        child: Container(
+
+                          height: sheight * 0.065,
+                          width: swidth * 0.4,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color.fromARGB(255, 59, 158, 201),
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (ctx) => const HomePage()));
+                              print(_loginNameController.text);
+                              print(_passwordController.text);
+
+                            },
+                            child: const Center(
+                              child: Text(
+                                'Login',
+                                style:
+                                TextStyle(color: Colors.white, fontSize: 15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ])
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
